@@ -47,6 +47,7 @@ soru_ve_cevap = {
     'liberalist': 'Buyur',
     'sus': 'üzdün :((',
     'eşşek': 'At',
+    'eşek': 'At',
     'salak': 'ŞAPŞİK 🤡',
     'sen kimsin': 'Çağlar öncesi zamanlardan kalma bir varlık, şahsiyet veya bir canlı. Ve sen de bana itaat etmek için gönderilen zavallı bir kulsun.',
     'bs vs gel': 'Daha dün babanı yendim ağlıyo şu an',
@@ -132,21 +133,21 @@ aktif_oyun = set()
 
 # Yardım
 @bot.hybrid_group()
-async def L1(ctx):
+async def l1(ctx):
     await ctx.send()
 
-@L1.command(description="Kullanılabilir komutları gösterir.")
+@l1.command(description="Kullanılabilir komutları gösterir")
 async def yardım(ctx):
-    await ctx.send("/yardım: Kullanılabilir komutları gösterir.", ephemeral=True)
+    await ctx.send(komutlar, ephemeral=True)
 
 
 # Yazı Tura
 @bot.hybrid_group()
-async def L2(ctx):
+async def l2(ctx):
     await ctx.send()
 
 
-@L2.command(description="Bota yazı tura attırır.")
+@l2.command(description="Bota yazı tura attırır")
 async def yazı_tura(ctx):
     sonuc = random.choice(['yazı', 'tura'])
     await ctx.send('Yazı tura atıyorum')
@@ -160,10 +161,10 @@ async def yazı_tura(ctx):
 
 # Tekrarlama
 @bot.hybrid_group()
-async def L3(ctx):
+async def l3(ctx):
     await ctx.send()
 
-@L3.command(description="Bota istenilen sayıda istenilen mesajlar attırılır (Sadece moderatörler)")
+@l3.command(description="Botun istenilen sayıda istenilen mesajlar atılmasını sağlar (Sadece moderatörler)")
 async def tekrarla(ctx, yazi: str, tekrar: int): 
     """Repeats a message multiple times."""
     if ctx.author.id == 194916320997801984:
@@ -176,8 +177,12 @@ async def tekrarla(ctx, yazi: str, tekrar: int):
 
 
 # Random Mem Gönderme
-@bot.command('randommem')
-async def memrandom(ctx):
+@bot.hybrid_group()
+async def l4(ctx):
+    await ctx.send()
+
+@l4.command(description="Botun rastgele bir mem göndermesini sağlar")
+async def randommem(ctx):
     img_name = random.choice(os.listdir('images'))
     with open(f'images/{img_name}', 'rb') as f:
         picture = discord.File(f)
@@ -186,8 +191,12 @@ async def memrandom(ctx):
 
 
 # Random Ördek Gönderme
-@bot.command('randomduck')
-async def duck(ctx):
+@bot.hybrid_group()
+async def l5(ctx):
+    await ctx.send()
+
+@l5.command(description="Botun random bir ördek fotoğrafı göndermesini sağlar")
+async def randomduck(ctx):
     image_url = get_duck_image_url()
     await ctx.send(image_url)
     time.sleep(3)
@@ -200,7 +209,11 @@ def get_duck_image_url():
 
 
 # Random Köpek Gönderme
-@bot.command('randomdog')
+@bot.hybrid_group()
+async def l6(ctx):
+    await ctx.send()
+
+@l6.command(description="Botun random bir köpek fotoğrafo göndermesini sağlar")
 async def dog(ctx):
     image_url = get_dog_image_url()
     await ctx.send(image_url)
@@ -214,14 +227,18 @@ def get_dog_image_url():
 
 
 # Random Bİlgi
-@bot.command('randombilgi')
-async def randombilgii(ctx):
+@bot.hybrid_group()
+async def l7(ctx):
+    await ctx.send()
+
+@l7.command(description="Botun random bir bilgi vermesini sağlar")
+async def randombilgi(ctx):
     cevap = random.choice(randombilgicevap)
     await ctx.send(cevap)
     time.sleep(3)
 
 
-# Mesaj Sİlme
+# Mesaj Silme
 @bot.command()
 @commands.has_permissions(manage_messages=True)
 async def sil(ctx, sayi: int):
@@ -235,7 +252,7 @@ async def sil(ctx, sayi: int):
 
 
 # Soru Cevap
-@bot.command('s')
+@bot.command("s")
 async def soru_cevap_cıktı(ctx, *, soru: str):
     cevap = soru_ve_cevap.get(soru, 'Ne diyon la')
     await ctx.send(cevap)
@@ -243,7 +260,7 @@ async def soru_cevap_cıktı(ctx, *, soru: str):
 
 
 # BlackJack
-@bot.command('bj')
+@bot.command("bj")
 async def blackjack(ctx):
     if ctx.author.id in aktif_oyun:
         await ctx.send('Zaten bir oyununuz var! Lütfen oyununuzu bitirin.')
