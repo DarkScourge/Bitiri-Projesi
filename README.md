@@ -1,4 +1,4 @@
-# Bitiri-Projesi
+# Bitiriş-Projesi
 
 1. Botun performansını ve işlevselliğini test etmek istiyorum ve bunu kullanıcılara denettirip yapacağım.
 
